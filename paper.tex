@@ -278,16 +278,51 @@ and psychological experiments that involve a theory of mind, such as
 \section{Robot Control}
 \label{sect|ctrl}
 
-\subsection{Modeling the interaction}
+\subsection{Modeling the knowledge related to the interaction}
 
 We split the interaction situations stemming from the situation assessment and
 communication components in two categories: \emph{desires} and
 \emph{experiences}.
 
 Experiences comprise of emotions and questions
+
 \subsection{Task planning}
 
-\cite{Alili2008}
+In order to devise how a given goal can be accomplished, the robot has to
+elaborate a plan,\ie a set of actions to be achieved by the robot and its human
+partners.  We use in our architecture the HATP planner~\cite{Alili2009} (for
+Human Aware Task Planner).  HATP is based on a Hierarchical Task Network (HTN)
+refinement, which performs an iterative task decomposition into sub-tasks until
+reaching atomic actions.  The planning domain defines a set of methods
+describing how to decompose a task and can be seen as the procedural knowledge
+of the robot.
+
+In order to produce a collaborative behaviour, the robot plans not only for
+itself but also for the other agents. The planning domain of each agent is
+instantiated from the agent-specific model in the ORO server. The resulting
+plan, called ``shared plan'' is a set of actions that form a stream for each
+agent involved in the goal achievement. HATP can also be tuned by setting up
+different costs depending on the actions to apply and by taking into account a
+set of constraints called \emph{social rules}. This tuning aims at adapting the
+robot's behaviour according to the desired level of cooperation of the robot.
+
+
+Two important remarks: because HATP is a generic symbolic task planner, we have
+been able to design a planning domain at a semantic level which is close to the
+one used in the human-robot dialogue (the planner vocabulary contains concepts
+like \texttt{give}, \texttt{table}, \texttt{is on}...). Hence only a few
+ontology rules have been required to map both the knowledge extracted from the
+situation assessment and the statements originated from the verbal interaction
+to the planner domain.
+
+Second remark, after some research (see appendix B of~\cite{ma these} for a
+detailled discussion)  we have decided not to represent neither tasks nor plans
+in the ontology: the planning domain (with tasks pre- and postconditions) is
+stored in a specific format, outside of the knowledge repository, and the
+resulting plans are directly communicated to the robot controller. The ontology
+formalism that we have adopted (namely OWL) does not appear to be a satisfaying
+reprepresentation language for concepts that are both tightly bound to time
+representation and non-monotonic. Other researches (\cite{tenorth...}) have attempted with more success (\fixme{regarder ca!!}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Internal Cognitive Processes}
@@ -303,7 +338,7 @@ Experiences comprise of emotions and questions
 \section{Conclusions}
 \label{sect|conclusion}
 
-We conclude this article we three different perspective on the knowledge-centric
+We conclude this article with three different perspectives on the knowledge-centric
 techniques we have presented here: first, the \emph{architect perspective}:
 what are the pro and cons of our approach from an engineer point of view. Then,
 the \emph{logician perspective}: does the promise of automated reasoning for
