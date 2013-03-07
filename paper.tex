@@ -16,6 +16,8 @@
 \usepackage[utf8x]{inputenc}
 \usepackage{cite}
 \usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{url}
 \graphicspath{{figs/}}
 \DeclareGraphicsExtensions{.pdf,.jpg,.png}
 
@@ -66,7 +68,71 @@ autonomous robots.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{A Knowledge-Oriented Architecture}
 
-\subsection{The LAAS deliberative layer}
+\subsection{Towards the cognitive robot at LAAS}
+
+Natural interaction and cooperation are the current (dare we say,
+\emph{short-term}) targets for the human-robot interaction community. They are
+keys to the broad class of \emph{interactive manipulation problems}: several
+agents agree on a (more or less implicit) joint goal that requires some sort of
+cooperation to be successfully achieved. This class of problems involves both
+dialogue and manipulation and they are often not completely defined at
+start-up: they require iterative and interactive resolution.
+
+Over the last years we have focused our efforts on identifying the cognitive
+prerequisites of these challenges, and giving them experimental reality on the
+robots: what is required for a sentence like ``Let's dress the table together''
+to be understood by the robot, correctly interpreted in the spatial and
+temporal context of the interaction, and eventually transformed into a set of
+actions?
+
+We have chosen to tackle the challenge from several ends: human-aware
+navigation and motion planning (\cite{...Mamoun}), situation assessment coupled
+with motion planning (\cite{...}), projection of ``mightabilities'' that
+anticipates what surrounding agents may do (\cite{Amit...}), and the design and
+deployment of a pervasive \emph{knowledge-centric} software architecture.
+
+We focus in this paper on that last item, to present what that means, and what
+are the benefits and drawbacks.
+
+\subsection{Deployment on robots}
+
+While we do not present them here, the ideas and techniques pertaining to this
+paper have been all implemented and tested on several robots (see previously
+reported experiments in~\cite{Lemaignan2010, Ros2010b, Lemaignan2011a,
+Warnier2012a}). Videos presenting some of these experimental results can also
+be watched online at~\url{http://www.laas.fr/~slemaign}.
+
+\subsection{Article overview}
+
+We first describe with more details how the deliberative layer of our robots is
+built and why this monolithic functional group enables what we call a
+\emph{knowledge-oriented} architecture. The first section also introduce our
+central knowledge management tool, the ORO server.
+
+The next sections go over each of the facets of this deliberative layer: how
+knowledge is produced asynchronously from geometric reasoning, how the robot
+conducts grounded multi-modal interaction with humans, how knowledge is used by
+decision-making components like the robot controller or the task planner, and
+finally, how our knowledge-centric architecture enables the implementation of
+specific internal cognitive processes.
+
+We conclude the article with a discussion about the strenghts and weaknesses of
+such a knowledge-oriented architecture, fron three perspectives: the architect,
+the IA expert and the cognitician.
+
+
+\section{The LAAS deliberative layer}
+
+\cite{Alami2011}
+
+\begin{figure*}
+        \centering
+        \includegraphics[width=1.7\columnwidth]{archi}
+        \caption{Overview of the LAAS deliberative layer.}
+        \label{fig|archi}
+\end{figure*}
+
+
 
 We can give a broader look at the knowledge and the streams of knowledge in our
 systems.  Based on the experience gained while developing and deploying {\sc
@@ -176,17 +242,6 @@ perspective taking. By explicitly enabling independent modeling of the beliefs
 of each agent, our architecture is especially well suited to set up cognitive
 and psychological experiments that involve a theory of mind, such as
 \emph{False-Belief} experiments, as recently presented in~\cite{Warnier2012a}.
-
-
-
-\cite{Alami2011}
-
-\begin{figure*}
-        \centering
-        \includegraphics[width=1.7\columnwidth]{archi}
-        \caption{Overview of the LAAS deliberative layer.}
-        \label{fig|archi}
-\end{figure*}
 
 \subsection{Knowledge Model}
 
