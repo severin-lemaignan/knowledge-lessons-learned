@@ -264,11 +264,39 @@ and psychological experiments that involve a theory of mind, such as
 \section{Communication}
 \label{sect|com}
 
+\subsection{Natural language grounding}
+
+
 \cite{Lemaignan2011a}
 
 \subsection{Disambiguation at semantic level}
 
-\cite{Ros2010b}
+One protoypical example of semantic disambiguation has been given in
+\cite{Ros2010b} with the child's \emph{spygame}: two players are facing
+eachother with a set of random objects inbetween, one player mentally choose
+one object, and the other player has to guess the object by asking closed
+questions like \emph{Is your object small or large?}. Based on the knowledge it
+has acquired, the robot is able to minimize the number of questions required to
+find the object.
+
+When playing this kind of game, however, the issue arises that the robot has no
+way to select which knowledge about the object is relevant in the interaction
+context. For instance, the knowledge base may store facts like \stmt{obj1 type
+ActiveConcept} (which internally means that this concept was mentioned in a
+discussion in the last few seconds): this information is not a relevant
+property of \concept{obj1} when trying to disambiguate concepts with humans.
+This distinction between \emph{internal knowledge} (meaningful to
+the systme only) and \emph{common knowledge} (whose meaning is understood by
+all the interactors) has not been properly dealt with in our architecture.
+
+Besides, even knowledge that belongs to what we call \emph{common knowledge},
+may not be appropriate in a given interaction context. For instance, the system
+may compute that at a given instant, the human is looking at the object:
+\stmt{human looksAt obj1}. This property makes sense to both parties, but in
+the context of the \emph{spygame}, we would like to mainly use immanent
+properties, not volatile like a gaze. More research is required to precise this
+idea of contexts and knowledge class attached to them.
+
 
 \fxnote{Mention failures like 'placeOing'}
 
