@@ -287,14 +287,34 @@ and psychological experiments that involve a theory of mind, such as
 
 \subsection{Natural language grounding}
 
+One of the field of human-robot interaction where the introduction of the
+semantic layer has been most beneficial is natural language processing.
+\cite{Lemaignan2011a} details the techniques and the tool called
+\texttt{dialogs} that we have developed for English language parsing and
+grounding, for (minimalist) dialogue management and for verbalisation.
 
-\cite{Lemaignan2011a}
+Natural language input (in experiments, we rely on an Android-based interface
+running on a tablet, with Google-based speech recognition, for the input) is
+parsed into a grammatical structure, and each sentence atoms are resolved with
+the help of the ontology to ground classes (when a user says ``pick the can'',
+to which instance of \emph{can} the user refers to?) and actions. Sentences are
+sorted into questions, desires and statements, and processed accordingly.
+
+The system supports quantification (``give me \{a|the|some|all|any|...\} can''),
+thematic roles attached to actions, interactive disambiguation (the robot asks
+questions when needed), anaphora resolution (``give \emph{it} to me'') based on
+dialogue history. It also permits knowledge extension by learning new semantic
+structures (for instance, a sentence like ``learn that cats are animals'' is
+converted into \stmt{Cat subClassOf Animal}, even if \concept{Cat} is not known
+beforehand) and tries to translate \emph{states} (``I'm tired'') into
+\emph{experiences} (\stmt{HUMAN experiences state\_1, state\_1 hasFeature
+tired}).
 
 \subsection{Disambiguation at semantic level}
 
-One protoypical example of semantic disambiguation has been given in
+One prototypical example of semantic disambiguation has been given in
 \cite{Ros2010b} with the child's \emph{spygame}: two players are facing
-eachother with a set of random objects inbetween, one player mentally choose
+each other with a set of random objects in-between, one player mentally choose
 one object, and the other player has to guess the object by asking closed
 questions like \emph{Is your object small or large?}. Based on the knowledge it
 has acquired, the robot is able to minimize the number of questions required to
@@ -322,6 +342,36 @@ idea of contexts and knowledge class attached to them.
 \fxnote{Mention failures like 'placeOing'}
 
 \subsection{Multi-modal communication}
+
+Because the main communication channel between component is semantic data,
+different communication modalities (explicit like verbal, dectic or based on
+gaze, or implicit like postures) are accessed in an homogeneous way.
+
+The grounding process copes with and integrates the different physical
+modalities at two disctint levels.
+
+First, the grounding module explicitely check for the presence and value of
+particular facts: for instance, when a set of instances match a category (the
+human says ``give me the bottle'' and the robot knows about three bottles), the
+module may decide (it actually depends on the quantifier preceding the class:
+\emph{the}, \emph{a}, \emph{any}...) to discard some of them based on their
+\emph{visibility} by the speaker (implicit communication context built from the
+human posture).
+
+Another example, when the human says ``this'', the robot checks if the human is
+currently both pointing and looking at some object. In that case, \emph{this}
+is replaced by the object focused on.
+
+Note that, while the system benefits from the complementary modalities, they
+are not required. The dialogue system would work as well in a purely verbal
+setting.
+
+The second level of integration of multi-modality is implicit: by computing
+symbolic properties from the geometry, richer descriptions and hence
+discrimination possibilities are available: for instance, if reachability is
+available, the robot may asks ``do you mean the bottle that is accessible to
+me?'' to discriminate between the three bottles. That way, procedures relying
+on discrimination transparently benefit from added modalities.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Robot Control}
