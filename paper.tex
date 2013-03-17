@@ -441,7 +441,7 @@ ontology rules have been required to map both the knowledge extracted from the
 situation assessment and the statements originated from the verbal interaction
 to the planner domain.
 
-Second remark, after some research (see appendix B of~\cite{ma these} for a
+Second remark, after some research (see appendix B of~\cite{Lemaignan2012a} for a
 detailled discussion)  we have decided not to represent neither tasks nor plans
 in the ontology: the planning domain (with tasks pre- and postconditions) is
 stored in a specific format, outside of the knowledge repository, and the
@@ -456,7 +456,25 @@ representation and non-monotonic. Other researches (\cite{tenorth...}) have atte
 
 \subsection{Theory of Mind}
 
-\cite{Warnier2012a}
+Theory of Mind (originally defined in~\cite{Premack1978}) is the
+cognitive ability that a subject has to represent the mental state of another
+agent, possibly including knowledge that contradicts the subject own model: for
+example, a book can be at the same time visible by myself, and not visible by
+you.
+
+This skill, which is essential to understand others' perspectives during
+interactions, appears in children around their third year. It supposes the ability to build, store and retrieve separate models of the knowledge of the interactors.
+
+Our knowledge base implements such a mechanism: when the robots infers a new
+agent has been introduced in the knowledge base, it initializes a new,
+independant, ontology for this agent. All the ontologies that are created share
+the same common-sense knowledge, but rely on each agent's perspective for the
+actual instantiation: the robot (geometrically) computes that the book is in
+its own field of view, but not in the human one. The robot knowledge contains
+the fact \stmt{book isVisible true} while the human model contains \stmt{book
+isVisible false}.
+
+The \cite{Warnier2012a}
 
 \subsection{Working Memory}
 
