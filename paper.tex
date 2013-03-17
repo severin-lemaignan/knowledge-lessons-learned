@@ -266,7 +266,34 @@ and psychological experiments that involve a theory of mind, such as
 
 \subsection{Knowledge Model}
 
-\cite{Lemaignan2010}
+In our architecture, knowledge manipulation relies on a \emph{semantic
+blackboard}: one central server (the {\sc Oro} server,~\cite{Lemaignan2010})
+stores knowledge as it is produced by the various modules. It also exposes an
+API to query the knowledge base.
+
+Knowledge is represented as RDF triple and using the OWL sub-language. Each
+time triples are added or removed from the knowledge base, an Description
+Logics reasoner (Pellet\footnote{\url{http://clarkparsia.com/pellet/}})
+classifies the whole ontology and appends all possible supplementary
+inferences.
+
+Relying on RDF triples and Description Logics has major advantages like
+the availability of numerous open-source libraries to manipulate the ontology, interoperability with several major on-line knowledge bases (like {\sc OpenCyc}, {\sc WordNet} or {\sc
+DBPedia}), and the formal guarantee of decidability (it is always possible to classify a Description Logics ontology).
+
+It has also notable limitations: RDF triples mean only binary predicates
+(\stmt{subject predicate object}), which constrains the expressiveness of
+the system (or leads to cumbersome reifications). Alternative exists (like {\sc
+KnowRob}~\cite{Tenorth2009a}) that mixes RDF with more expressive logic
+languages like {\sc Prolog} (at the price, however, of other limitations, like
+\emph{closed world assumption} or immutable T-Box). The classification
+performance is another issue: from our experience, with an ontology sized for a
+standard experiment (about 200 instances and 100 classes), classification would
+take about 100ms, which sometimes becomes problematic during interactions.
+Besides, the performances are difficult to predict, since a seemingly
+inoffensive new statement may indirectly change radically the logical
+properties of the whole knowledge model and suddenly lead to much slower
+classification.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Situation Assessment}
