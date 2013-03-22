@@ -409,26 +409,67 @@ on discrimination transparently benefit from added modalities.
 \section{Robot control}
 \label{sect|ctrl}
 
-\subsection{Modeling the knowledge related to the interaction}
+\subsection{Desires and experiences}
+
+Our robot execution controllers (OpenPRS-based {\sc Shary} or Python-based {\sc
+pyRobots}) have deep integration with the knowledge base. It serves as the primary source of information for semantic-aware decision-making.
 
 We split the interaction situations stemming from the situation assessment and
-communication components in two categories: \emph{desires} and
-\emph{experiences}.
+communication components in two categories: \emph{desires} (performative act)
+and \emph{experiences} (assertive act).
 
-Experiences comprise of emotions and questions
+\emph{Desires} are typically human orders (``Give me that book''). The nature
+of the desired action (to pick, give, look, bring, show...), along with the
+action parametrization (what is acted on? who should perform the action? etc.)
+are extracted from the knowledge base, and either passed to a task planner
+(presented in the next section) or executed if the procedure is directly
+available.
 
-\subsubsection{Event-driven control}
+\emph{Experiences}, on the other hand, comprise of emotions, states and
+questions (when asking a question, we consider the human to be in an
+\emph{interrogative state}). When the knowledge base recognizes that an agent
+\emph{experiences} a particular emotion or state, the execution controller may
+decide to handle it, typically by trying to answer the question or using the
+emotional or physical state as a parameter for subsequent actions. As an example,
+when the speaker says ``I feel tired'', we change the motion planner
+parametrization to lower the effort the human need to provide for the following
+joint manipulation tasks. Note that this example has been implemented as a
+proof-of-concept. We have not yet tried to define a theoretical framework that
+would support action alteration based on the user's experienced states.
+
+\subsection{Event-driven control}
+
+The {\sc Oro} server proposes two paradigms to access its content: RPC-style
+queries (based on the standard SPARQL language) or events. In its simplest
+form, a module can register an event by passing through an event pattern, which
+is basically a partial statement like \stmt{? type Elephant}, and a callback.
+Every time a new instance of elephant appears in the knowledge base, the
+callback is triggered.
+
+This allows us to write reactive robot controllers with a high level of
+expressiveness: for instance, by subscribing to the event \stmt{human1 desires
+?action, ?action type Look, ?action hasGoal myself}, we could trigger a
+behaviour when the human expresses (through dialogue, gestures...) that he
+wants to look at the robot itself.
+
+The robot controller designer does not need to directly care about how this
+\emph{desire} is produced (this is delegated to perception modules), it can
+focuses on the semantic of the desire.
+
+Note also that we take advantage of the reasoning capabilities of the system:
+for example, the goal of the action (\stmt{action hasGoal myself}) may well not
+have been explicitly asserted, but inferred by the reasoner based on other
+assertions.
 
 \subsection{Task planning}
 
-In order to devise how a given goal can be accomplished, the robot has to
-elaborate a plan, \ie a set of actions to be achieved by the robot and its
-human partner(s).  We use in our architecture the HATP planner (for Human Aware
-Task Planner~\cite{Alili2009}).  HATP is based on a Hierarchical Task Network
-(HTN) refinement, which performs an iterative task decomposition into sub-tasks
-until reaching atomic actions.  The \emph{planning domain} defines the set of
-methods describing how to decompose a task and can be seen as the procedural
-knowledge of the robot.
+Our execution controllers rely on symbolic task planning to convert faraway
+desires into a succession of atomic actions. We use in our architecture the
+HATP planner (for Human Aware Task Planner~\cite{Alili2009}).  HATP is based on
+a Hierarchical Task Network (HTN) refinement, which performs an iterative task
+decomposition into sub-tasks until reaching atomic actions.  The \emph{planning
+domain} defines the set of methods describing how to decompose a task and can
+be seen as the procedural knowledge of the robot.
 
 In order to produce a collaborative behaviour, the robot plans not only for
 itself but also for the other agents. The planning domain of each agent is
