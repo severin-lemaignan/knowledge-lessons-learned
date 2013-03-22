@@ -21,6 +21,21 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{Mainprice2011}
+J.~Mainprice, E.~A. Sisbot, L.~Jaillet, J.~Cortes, R.~Alami, and T.~Simeon,
+  ``Planning human-aware motions using a sampling-based costmap planner,'' in
+  \emph{IEEE International Conference on Robotics and Automation}, 2011.
+
+\bibitem{Mainprice2012}
+J.~Mainprice, M.~Gharbi, T.~Sim{\'e}on, and R.~Alami, ``Sharing effort in
+  planning human-robot handover tasks,'' in \emph{RO-MAN}, 2012.
+
+\bibitem{Pandey2011}
+A.~Pandey, M.~Ali, M.~Warnier, and R.~Alami, ``Towards multi-state
+  visuo-spatial reasoning based proactive human-robot interaction,'' in
+  \emph{Proceedings of the 15th International Conference on Advanced
+  Robotics}.\hskip 1em plus 0.5em minus 0.4em\relax IEEE, 2011, pp. 143--149.
+
 \bibitem{Lemaignan2010}
 S.~Lemaignan, R.~Ros, L.~M\"osenlechner, R.~Alami, and M.~Beetz, ``{ORO}, a
   knowledge management platform for cognitive architectures in robotics,'' in
@@ -67,6 +82,16 @@ M.~Tenorth and M.~Beetz, ``{\sc KnowRob} - knowledge processing for autonomous
 E.~Sisbot, R.~Ros, and R.~Alami, ``Situation assessment for human-robot
   interaction,'' in \emph{20th IEEE International Symposium in Robot and Human
   Interactive Communication}, 2011.
+
+\bibitem{Breazeal2006}
+C.~Breazeal, M.~Berlin, A.~Brooks, J.~Gray, and A.~Thomaz, ``Using perspective
+  taking to learn from ambiguous demonstrations,'' \emph{Robotics and
+  Autonomous Systems}, pp. 385--393, 2006.
+
+\bibitem{Ros2010}
+R.~Ros, E.~A. Sisbot, R.~Alami, J.~Steinwender, K.~Hamann, and F.~Warneken,
+  ``Solving ambiguities with perspective taking,'' in \emph{5th ACM/IEEE
+  International Conference on Human-Robot Interaction}, 2010.
 
 \bibitem{Alili2009}
 S.~Alili, M.~Warnier, M.~Ali, and R.~Alami, ``Planning and plan-execution for
