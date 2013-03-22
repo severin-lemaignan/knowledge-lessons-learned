@@ -146,8 +146,8 @@ architect, the IA expert and the cognitician.
 
 \section{The LAAS deliberative layer}
 
-\cite{Alami2011}
-\ref{fig|archi}
+Fig.~\ref{fig|archi} give an overview of the connections between the
+deliberative components of our architecture~\cite{Alami2011}.
 
 \begin{figure*}
         \centering
@@ -167,7 +167,7 @@ cognition-related modules reside at the same level). This is especially visible
 for the dialogue input processing. This component does not simply act as an
 alternative perceptual input to the symbolic database, but also actively
 queries previously acquired knowledge to disambiguate and validate the newly
-created symbolic knowledge.
+created symbolic knowledge (see section~\ref{sect|com}).
 
 Our architecture relates but is to be distinguished from \emph{Beliefs,
 Desires, Intentions} (BDI) architectures. BDI architectures are primarily
@@ -196,11 +196,12 @@ but does not lead to the creation of desires,  like question answering or
 statement assertion), various background monitoring and recognition tasks, etc.
 
 Regarding the anchoring question, this architecture is bidirectional. The
-components we described provide a \textit{bottom-up} grounding process: SPARK
-and \textsc{Dialogs} constantly build and push new symbolic contents about the
-world to {\sc Oro} where it becomes accessible to decisional layers. In parallel, {\sc Oro}
-relies on reasoning in a \textit{top-down} way to produce new facts that may
-trigger in return physical behaviours. 
+components we described provide a \textit{bottom-up} grounding process:
+geometric reasoning and dialogue processing modules constantly build and push
+new symbolic contents about the world to the knowledge base where it becomes
+accessible to decisional layers. In parallel, the knowledge base relies on
+reasoning in a \textit{top-down} way to produce new facts that may trigger in
+return physical behaviours.
 
 \subsection{Knowledge model}
 
