@@ -257,9 +257,65 @@ each of the agents the robot interacts with (see section~\ref{sect|tom}).
         \label{fig|spark-oro}
 \end{figure}
 
-\cite{Sisbot2011}
+Anchoring perceptions in a symbolic model requires perception abilities and
+their symbolic interpretation. We rely on a dedicated geometric and temporal
+reasoning module (as named on Fig.~\ref{fig|archi}) called SPARK (\emph{SPAtial
+Reasoning \& Knowledge}~\cite{Sisbot2011}). It is a situation assessment
+reasoner that generates symbolic knowledge from the geometry of the
+environment with respect to relations between objects, robots and humans,
+also taking into account the different perspective that each agent has on
+the environment (Fig.~\ref{fig|spark-oro}).
+
+SPARK is an \emph{amodal} geometric model of the environment that serves both
+as basis for the fusion of the perception modalities and as bridge with the
+symbolic layer. This geometric model is continuously updated at run-time by the
+robot based on its sensors. In our experiments, objects are identified and
+localised through 2D barcodes.  On the other hand, the human pose is tracked
+with a Kinect-like device (assisted by motion capture to accurately track the
+head motion, which is required to compute what the human is looking at).
+
+\subsection{Computed symbolic relations}
+
+\subsubsection{Agent-independent locations}
+
+Absolute spatial relations (\concept{isOn}, \concept{isIn}, \concept{isNextTo},
+\concept{isAbove}...) are computed for every pairs of object, taking into
+account relative sizes for relations like \concept{isNextTo}. Other
+agent-independent properties like \concept{isMoving} are also computed.
+
+\subsubsection{Agent-dependent placements}
+
+The space surrounding each agent is divided into 16 regions (like
+\emph{back-left}, \emph{front-near}, etc.). Based on this partition, symbolic
+relations between each pair (agent, object) is computed and added to the
+knowledge base.
+
+\subsubsection{Affordances}
+
+SPARK also computes affordances: \concept{sees}, \concept{looksAt},
+\concept{pointsAt}, \concept{canReach}. Visibility (with two levels
+corresponding to the field of view and the field of attention) and pointing are
+computed by placing virtual cameras in the SPARK 3D model, while reachability
+relies on inverse kinematics. Several filters (based on hystersis, expected
+object behaviour, etc.) allow to partially account for perception
+noise~\cite{Warnier2012a}.
 
 \subsection{Ego-centric and allo-centric frames}
+
+SPARK enables \emph{perspective-taking}: spatial relations between entities can
+be computed from different viewpoints, which let the robot build for each
+agents it interacts with a different, \emph{perspective-aware} symbolic model
+of the environment. These models are separately stored in the knowledge base.
+
+This allows us to deal with ambiguities that arises when one speaker refers to
+an object within a reference system (or changes the reference system, \ie
+switches perspective) without making the reference frame
+explicit~\cite{Breazeal2006, Ros2010}.
+
+As a result, the robot stores models on the environment either in the
+\emph{ego-centric} reference frame (from the robot perspective) or in
+addressee-centred (\ie, \emph{allo-centric}) frames.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Communication}
