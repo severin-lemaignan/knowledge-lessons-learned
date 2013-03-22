@@ -78,7 +78,7 @@ verbal interaction to event-driven execution control, we have built up a
 robots.
 
 This article presents our design choices, the articulations between the diverse
-deliberative components of the robot, and the strenghts and weaknesses of this
+deliberative components of the robot, and the strengths and weaknesses of this
 approach. We show that explicit knowledge management is not only a convenient
 tool from the software engineering point of view, but also pushes for a
 different, more \emph{semantic} way to address the decision-making issue in
@@ -313,7 +313,7 @@ appropriate in a given interaction context. For instance, the system may
 compute that at a given instant the human is looking at the object: \stmt{human
 looksAt obj1}. This property makes sense to both parties, but in the context of
 the \emph{spygame}, we would like to mainly use immanent properties, not
-volatile like a gaze. More research is required to indentify relevant
+volatile like a gaze. More research is required to identify relevant
 interaction contexts and knowledge classes attached to them.
 
 \subsection{Multi-modal communication}
@@ -536,7 +536,7 @@ modules interfaces are only defined in term of knowledge consumption and/or
 production. This brings good decoupling properties. For instance, the output of
 the dialog module is a new \emph{situation desired} by the speaker. This module
 can be transparently replaced or completed by any other module that produces
-the same chuncks of knowledge. Only a thin protocol layer remains to get the
+the same chunks of knowledge. Only a thin protocol layer remains to get the
 modules to interact together. This allows us to implement (otherwise difficult)
 merging of radically different perception modalities like vision (the robot
 sees an object on a table: the output would look like \stmt{obj1 isOn table1})
@@ -545,7 +545,7 @@ is red: it leads to a query \stmt{? isOn table1} and then a new assertion:
 \stmt{obj1 hasColor red}).
 
 Another consequence is that the communication channels are {\it
-defacto} defined by the semantics of the information they
+de facto} defined by the semantics of the information they
 convey. This allows the system designers to think in term of which module
 produces or needs which knowledge, instead of which module produces which
 service. We found this approach to be very helpful when implementing cognitive
@@ -626,7 +626,7 @@ application of reasoning in our architecture, where reasoning related
 to decision making mostly happen outside the knowledge representation system.
 
 
-\subsubsection{The Cognician view: palpable knowledge and semantic thinking}
+\subsubsection{The Cognitician view: palpable knowledge and semantic thinking}
 
 The original motivation to introduce explicit knowledge management in our
 architecture was to transform the knowledge in the robot from some ubiquitous,
