@@ -108,13 +108,13 @@ temporal context of the interaction, and eventually transformed into a set of
 actions.
 
 We have chosen to tackle the challenge from several ends: human-aware
-navigation and motion planning (\cite{Mainprice2011}), situation assessment
-coupled with motion planning (\cite{Mainprice2012}), projection of
-``mightabilities'' that anticipates what surrounding agents may do
-(\cite{Pandey2011}), and the design and deployment of a pervasive
-\emph{knowledge-centric} software architecture.
+navigation and motion planning~\cite{Mainprice2011}, situation assessment
+coupled with motion planning~\cite{Mainprice2012}, projection of
+``mightabilities'' that anticipates what surrounding agents may
+do~\cite{Pandey2011}, and the design and deployment of a pervasive
+\emph{knowledge-oriented} software architecture.
 
-The last item is the focus of this paper: what does ``knowledge-centric''
+The last item is the focus of this paper: what ``knowledge-oriented''
 architecture means, and what are its benefits and drawbacks.
 
 \subsection{Deployment on robots}
@@ -129,14 +129,14 @@ be watched online at~\url{http://www.laas.fr/~slemaign}.
 
 In the next section, we first introduce the deliberative layer of our robots at
 the functional level. It represents what we call a \emph{knowledge-oriented}
-architecture, built around a central knowledge management tool called the {\sc
-Oro} server.
+architecture, built around a central knowledge management tool called the
+OpenRobot Ontology ({\sc Oro}) server.
 
 The following sections go over each of the facets of this deliberative layer:
 how knowledge is produced asynchronously from geometric reasoning, how the
 robot conducts grounded multi-modal interaction with humans, how knowledge is
 used by decision-making components like the robot controller or the task
-planner, and finally, how our knowledge-centric architecture enables the
+planner, and finally, how our knowledge-oriented architecture enables the
 implementation of specific internal cognitive processes.
 
 We conclude the article with a discussion about the strengths and weaknesses of
@@ -160,14 +160,14 @@ deliberative components of our architecture~\cite{Alami2011}.
 
 
 This architecture moves away from standard layered approaches. Interactions
-between components are mostly bidirectional and, from the software components
-point of view, we do not introduce layers of abstraction (we do, however, have
-access to the lower level modules of the robot to execute actions, but all
-cognition-related modules reside at the same level). This is especially visible
-for the dialogue input processing. This component does not simply act as an
-alternative perceptual input to the symbolic database, but also actively
-queries previously acquired knowledge to disambiguate and validate the newly
-created symbolic knowledge (see section~\ref{sect|com}).
+between components at the deliberative level are mostly bidirectional and we do
+not introduce layers of abstraction amongst software components\footnote{We do
+have lower-level modules to execute actions or manage sensors, but all
+cognition-related modules reside at the same level.}. This is nicely
+illustrated by the dialogue input processing. This component does not simply
+act as an alternative perceptual input to the symbolic database: it also
+actively queries previously acquired knowledge to disambiguate and validate the
+newly created symbolic knowledge (see section~\ref{sect|com}).
 
 Our architecture relates but is to be distinguished from \emph{Beliefs,
 Desires, Intentions} (BDI) architectures. BDI architectures are primarily
@@ -184,8 +184,8 @@ not seen as a monolithic, central function: it is one of the activities of the
 robot, actually split between communication components (that can acquire
 desires from interaction with agents, amongst other things) and an execution
 controller that may decide to take an incoming desire into account to create
-its own internal goals. The controller generates and controls intentions from
-these goals with the help of a symbolic task planner, that has also direct
+its own internal goals. The controller generates and manages intentions from
+these goals with the help of a symbolic task planner, that also has direct
 access to the knowledge base.
 
 The architecture is not only focused on this workload, and other
@@ -208,8 +208,8 @@ return physical behaviours.
 In our architecture (Fig.~\ref{fig|archi}), knowledge manipulation relies on a
 \emph{semantic blackboard}: one central server (the {\sc Oro}
 server~\cite{Lemaignan2010}) stores knowledge as it is produced by each of the
-deliberative components. It conversely exposes an API to query the knowledge
-base.
+deliberative components. It conversely exposes a {\tt json}-based RPC API to
+query the knowledge base~\cite{lemaignan2012kbapi}.
 
 Knowledge is represented as RDF triples in the OWL sub-language. Each
 time triples are added or removed from the knowledge base, a Description
@@ -238,10 +238,10 @@ complexity of the whole knowledge model and lead to notable degradation of
 classification time.
 
 This knowledge model also largely exclude representation of continuous
-phenomena (like time) or uncertain phenomena. When required, these have to be
-managed by dedicated components.
+phenomena (like time) or uncertain phenomena. When required, these are managed
+inside the corresponding components, and are not exposed at the system level.
 
-Amongst the features of {\sc Oro}, the system can dynamically creates
+Amongst the features of {\sc Oro}, the system can dynamically create
 new independent knowledge models (\ie independent instantiations of the
 ontology). This feature is used for instance to store separately the beliefs of
 each of the agents the robot interacts with (see section~\ref{sect|tom}).
@@ -260,27 +260,27 @@ each of the agents the robot interacts with (see section~\ref{sect|tom}).
 
 Anchoring perceptions in a symbolic model requires perception abilities and
 their symbolic interpretation. We rely on a dedicated geometric and temporal
-reasoning module (as named on Fig.~\ref{fig|archi}) called SPARK (\emph{SPAtial
-Reasoning \& Knowledge}~\cite{Sisbot2011}). It is a situation assessment
-reasoner that generates symbolic knowledge from the geometry of the
-environment with respect to relations between objects, robots and humans,
-also taking into account the different perspective that each agent has on
-the environment (Fig.~\ref{fig|spark-oro}).
+reasoning module called SPARK (\emph{SPAtial Reasoning \&
+Knowledge}~\cite{Sisbot2011}). It is a situation assessment reasoner that
+generates symbolic knowledge from the geometry of the environment with respect
+to relations between objects, robots and humans (Fig.~\ref{fig|spark-oro}),
+also taking into account the different perspective that each agent has on the
+environment.
 
 SPARK is an \emph{amodal} geometric model of the environment that serves both
 as basis for the fusion of the perception modalities and as bridge with the
 symbolic layer. This geometric model is continuously updated at run-time by the
-robot based on its sensors. In our experiments, objects are identified and
-localised through 2D barcodes.  On the other hand, the human pose is tracked
-with a Kinect-like device (assisted by motion capture to accurately track the
-head motion, which is required to compute what the human is looking at).
+robot based on its sensors (in our experiments, objects are identified and
+localised through 2D barcodes, while humans are tracked with Kinect-like
+devices, optionally assisted by motion capture to accurately track the head
+motion, which is required to compute what the human is looking at).
 
 \subsection{Computed symbolic relations}
 
 \subsubsection{Agent-independent locations}
 
 Absolute spatial relations (\concept{isOn}, \concept{isIn}, \concept{isNextTo},
-\concept{isAbove}...) are computed for every pairs of object, taking into
+\concept{isAbove}...) are computed for every pair of objects, taking into
 account relative sizes for relations like \concept{isNextTo}. Other
 agent-independent properties like \concept{isMoving} are also computed.
 
@@ -297,7 +297,7 @@ SPARK also computes affordances: \concept{sees}, \concept{looksAt},
 \concept{pointsAt}, \concept{canReach}. Visibility (with two levels
 corresponding to the field of view and the field of attention) and pointing are
 computed by placing virtual cameras in the SPARK 3D model, while reachability
-relies on inverse kinematics. Several filters (based on hystersis, expected
+relies on inverse kinematics. Several filters (based on hysteresis, expected
 object behaviour, etc.) allow to partially account for perception
 noise~\cite{Warnier2012a}.
 
@@ -322,12 +322,12 @@ addressee-centred (\ie, \emph{allo-centric}) frames.
 \section{Communication}
 \label{sect|com}
 
-\subsection{Natural language grounding}
+\paragraph*{Natural language grounding}
 
 Natural language processing is one of the fields of human-robot interaction
 where the introduction of the semantic layer has been most beneficial.
 We detail in~\cite{Lemaignan2011a} the techniques and the tool called
-\texttt{dialogs} that we have developed for English language parsing and
+\texttt{dialogs} that we have developed for natural English language parsing and
 grounding, along with verbalisation and (minimalist) dialogue management.
 
 Natural language input (in experiments, we rely on an Android-based interface,
@@ -342,11 +342,11 @@ thematic roles (action-specific predicates that qualify the actions), interactiv
 questions when it needs more information), anaphora resolution (``give \emph{it} to me'') based on
 dialogue history. It also permits knowledge extension by learning new semantic
 structures (for instance, a sentence like ``learn that cats are animals'' is
-converted into \stmt{Cat subClassOf Animal}, interprets common temporal and place adverbs (like \emph{above} or \emph{tomorrow}) and translates to a certain extend \emph{states} (``I'm tired'') into
+converted into \stmt{Cat subClassOf Animal}), interprets common temporal and place adverbs (like \emph{above} or \emph{tomorrow}) and translates to a certain extend \emph{states} (``I'm tired'') into
 \emph{experiences} (\stmt{HUMAN experiences state\_1, state\_1 hasFeature
 tired}).
 
-\subsection{Limits of disambiguation at semantic level}
+\paragraph*{Limits of disambiguation at semantic level}
 
 One prototypical example of semantic disambiguation has been given in
 \cite{Ros2010b} with the child game \emph{spygame}: two players are facing
@@ -396,8 +396,8 @@ currently pointing at some object. In that case, \emph{this} is replaced by the
 object focused on.
 
 Note that, while the system benefits from the complementary modalities, they
-are not all required. The dialogue system would for instance run equally well
-with only the verbal modality.
+are not all required. The dialogue system would for instance happily run with
+only the verbal modality, at the cost of weaker interaction.
 
 The second level of integration of multi-modality is implicit: by computing
 symbolic properties from the geometry, richer descriptions and hence
@@ -442,10 +442,10 @@ would support action alteration based on the user's experienced states.
 
 The {\sc Oro} server proposes two paradigms to access its content: RPC-style
 queries (based on the standard SPARQL language) or events. In its simplest
-form, a module can register an event by passing through an event pattern, which
-is basically a partial statement like \stmt{? type Elephant}, and a callback.
-Every time a new instance of elephant appears in the knowledge base, the
-callback is triggered.
+form, a module can subscribe to an event by passing through an event pattern
+(in its basic form, a partial statement like \stmt{? type Elephant}) and a
+callback.  Every time a new instance of elephant appears in the knowledge base,
+the callback is triggered.
 
 This allows us to write reactive robot controllers with a high level of
 expressiveness: for instance, by subscribing to the event \stmt{human1 desires
@@ -455,12 +455,11 @@ wants to look at the robot itself.
 
 The robot controller designer does not need to directly care about how this
 \emph{desire} is produced (this is delegated to perception modules), it can
-focuses on the semantic of the desire.
+focus on the semantic of the desire.
 
 Note also that we take advantage of the reasoning capabilities of the system:
-for example, the goal of the action (\stmt{action hasGoal myself}) may well not
-have been explicitly asserted, but inferred by the reasoner based on other
-assertions.
+for example, the goal of the action (\stmt{action hasGoal myself}) may not be
+explicitly asserted, but inferred by the reasoner based on other assertions.
 
 \subsection{Task planning}
 
@@ -530,7 +529,7 @@ that the raw number of RPC calls to the knowledge base only imperfectly
 reflects the actual cognitive processes running on, but it opens interesting
 perspective nevertheless. It would be interesting for example to compare
 and look for correlations with the cognitive load of a human partner (measured
-via EEG of qualitative feedback).
+via EEG or qualitative feedback).
 
 \subsection{Theory of Mind}
 \label{sect|tom}
@@ -568,7 +567,7 @@ our robots~\cite{Warnier2012a}.
 
 \subsection{Working memory}
 
-The {\sc Oro} server also feature a mechanism to mimic simple forms of
+The {\sc Oro} server also feature a mechanism to mimic minimalistic forms of
 biological memory.  When new statements are inserted in the knowledge base, a
 \emph{memory profile} is optionally attached to them.
 
@@ -582,16 +581,15 @@ refers to the semantics of the statements (that is expected to be related to an
 event) and not to a specific life duration.
 
 We rely however on this short term memory for a particular use-case:
-\emph{active concept}. Some modules, like the natural language processor, use
+\emph{active concepts}. Some modules, like the natural language processor, use
 the {\tt short term} memory profile to mark for a few seconds important
 concepts that are currently manipulated by the robot. For example, if a human
 asks the robot: ``Give me all red objects'', the human, the \concept{Give}
 action, and each red objects that are found are successively marked as
 \emph{active concepts} by inserting statements like \stmt{human type
 ActiveConcept} in the short-term memory (which can be considered, in this case,
-to be a working memory). We use this feature to give a (visual) feedback to the
-users.
-
+to be a working memory). We use this feature to trace certain knowledge-related
+processes.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -649,9 +647,9 @@ to understand orders).
 
 \subsection{Three perspectives on knowledge manipulation for robots}
 
-We conclude this article with three different perspectives on the knowledge-centric
+We conclude this article with three different perspectives on the knowledge-oriented
 techniques we have presented here: first, the \emph{architect perspective}:
-what are the pro and cons of our approach from an engineer point of view. Then,
+what are the pro and cons of our approach from an engineer's point of view. Then,
 the \emph{logician perspective}: does the promise of automated reasoning for
 robots really comes to fruition with ontologies? And finally the
 \emph{cognitician perspective} or how explicit knowledge manipulation endows
@@ -668,7 +666,7 @@ modules communicate together through RDF statements with only a few exceptions.
 Since these statements are anchored in the robot's pool of knowledge, they
 actually convey shared and unambiguous \emph{meaning} through the system. This
 has one important consequence from the perspective of the system architecture:
-modules interfaces are only defined in term of knowledge consumption and/or
+interfaces between modules are only defined in term of knowledge consumption and/or
 production. This brings good decoupling properties. For instance, the output of
 the dialog module is a new \emph{situation desired} by the speaker. This module
 can be transparently replaced or completed by any other module that produces
@@ -684,18 +682,18 @@ Another consequence is that the communication channels are {\it
 de facto} defined by the semantics of the information they
 convey. This allows the system designers to think in term of which module
 produces or needs which knowledge, instead of which module produces which
-service. We found this approach to be very helpful when implementing cognitive
+service. We found this approach to be helpful when implementing cognitive
 functions like the theory of mind, the perspective taking or the natural
 language grounding.
 
 Lastly, another good property of knowledge-based communication between module
 is the \emph{cognitive observability} of the system: by logging queries between
 modules (which is even easier in our case since we rely on a central knowledge
-management), one can trace the interactions between the robot systems at a high
+management), one can trace the interactions between the robot subsystems at a high
 abstraction level. We will come back below on the significance of this property
 from the cognitive point of view.
 
-The knowledge-centric architecture also has downsides. We can name here a few.
+The knowledge-oriented architecture also has downsides. We can name here a few.
 
 Because the sources of knowledge the robot has to deal with are multiple and
 often not known at startup (typically, the knowledge generated by a verbal
@@ -705,14 +703,14 @@ Also, it must be noted that actuation itself is directly piloted by the
 execution controller through standard RPC calls (ROS actions and/or Pocolibs
 requests): no knowledge abstraction takes place.
 
-On the sensing side also we have in certain cases to bypass the semantic layer
+Also on the sensing side, we have in certain cases to bypass the semantic layer
 (extension of the symbolic task planner with geometric constraints is one
 example).
 
-And obviously, many aspects like uncertainty management, modal logics,
-non-monotonic reasoning,... are not well addressed with the Description Logic
+Many aspects like uncertainty management, modal logics,
+non-monotonic reasoning are not well addressed with the Description Logic
 formalism, and remain to be explored to gain the level of expressiveness
-required to cover many of the more complex human-robot interaction scenarii.
+required to cover many of the more complex human-robot interaction scenarios.
 
 \subsubsection{The Logician view: the importance of trivial inferences}
 
@@ -726,7 +724,7 @@ required to cover many of the more complex human-robot interaction scenarii.
 
 This example of reasoning, quoted from Moritz Tenorth, is a good example of
 simple yet non-trivial reasoning. As a matter of fact, only very few of such
-prototypical reasoning cases where positively identified in our scenarii and experiments
+prototypical reasoning cases were positively identified in our scenarios and experiments
 (and consequently implemented as rules in {\sc Oro}).
 
 The design choices of our architecture partially explain that fact: first, the
@@ -738,7 +736,7 @@ reasoning tasks are not implemented as explicit symbolic rules in the knowledge
 base.
 
 The experiments we have conducted are also likely to have too simplistic
-semantics to let complex reasoning needs to emerge. Scenarii with more complex
+semantics to let complex reasoning needs to emerge. Scenarios with more complex
 semantics would be desirable to better stress the expressiveness and inference
 abilities provided by Description Logics.
 
@@ -746,15 +744,17 @@ Is reasoning at the knowledge level immature or even superfluous, then? Not so:
 hundreds of trivial (from a human point of view) inferences are continuously
 produced by the system (translating inheritance relations, domain/range
 constraints, transitivity, etc.) and encode a large amount of common-sense
-knowledge that can not be otherwise asserted. These trivial inferences are all
-the more important that an expressive knowledge representation language is
-used: when a language like OWL allows to directly represent high-level concepts
-like partitions, cardinality restrictions, properties' ranges and domains, it
-leads to a more implicit (because more abstract) description of the vocabulary
-that in turn requires more underlying reasoning. With the progress in the
+knowledge that can not be otherwise conveniently asserted. These trivial
+inferences are all the more important that an expressive knowledge
+representation language is used. Since a language like OWL allows it to
+directly represent high-level concepts like partitions, cardinality
+restrictions, properties' ranges and domains, it leads to a more
+\emph{implicit} description of the available knowledge.  This in turn pushes
+for a lot of ``trivial'' reasoning to make the knowledge pool explicit, and
+hence largely reusable by the deliberative subsystems. With the progress in the
 understanding of the relations between expressiveness and (tractable)
 satisfiability, along with the progress of reasoners, more and more of the
-inferences do not need to be explicit anymore, and consequently are delegated
+assertions do not need to be explicit anymore, and consequently are delegated
 to the reasoner.
 
 We think that \emph{common-sense encoding} is likely to remain the main
