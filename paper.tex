@@ -275,38 +275,22 @@ localised through 2D barcodes, while humans are tracked with Kinect-like
 devices, optionally assisted by motion capture to accurately track the head
 motion, which is required to compute what the human is looking at).
 
-\subsection{Computed symbolic relations}
+\paragraph*{Computed symbolic relations} Over twenty physical relations are
+continuously computed by SPARK: spatial relations, both agent-independent (like
+\concept{isOn}, \concept{isNextTo} or \concept{isMoving}), and agent-dependent
+(like \concept{isNear}, \concept{leftTo}), and also affordances:
+\concept{sees}, \concept{looksAt}, \concept{pointsAt}, \concept{canReach}.
+Visibility (with two levels corresponding to the field of view and the field of
+attention) and pointing are computed by placing virtual cameras in the SPARK 3D
+model, while reachability relies on inverse kinematics. Several filters (based
+on hysteresis, expected object behaviour, etc.) allow to partially account for
+perception noise~\cite{Warnier2012a}.
 
-\subsubsection{Agent-independent locations}
-
-Absolute spatial relations (\concept{isOn}, \concept{isIn}, \concept{isNextTo},
-\concept{isAbove}...) are computed for every pair of objects, taking into
-account relative sizes for relations like \concept{isNextTo}. Other
-agent-independent properties like \concept{isMoving} are also computed.
-
-\subsubsection{Agent-dependent placements}
-
-The space surrounding each agent is divided into 16 regions (like
-\emph{back-left}, \emph{front-near}, etc.). Based on this partition, symbolic
-relations between each pair (agent, object) is computed and added to the
-knowledge base.
-
-\subsubsection{Affordances}
-
-SPARK also computes affordances: \concept{sees}, \concept{looksAt},
-\concept{pointsAt}, \concept{canReach}. Visibility (with two levels
-corresponding to the field of view and the field of attention) and pointing are
-computed by placing virtual cameras in the SPARK 3D model, while reachability
-relies on inverse kinematics. Several filters (based on hysteresis, expected
-object behaviour, etc.) allow to partially account for perception
-noise~\cite{Warnier2012a}.
-
-\subsection{Ego-centric and allo-centric frames}
-
-SPARK enables \emph{perspective-taking}: spatial relations between entities can
-be computed from different viewpoints, which let the robot build for each
-agents it interacts with a different, \emph{perspective-aware} symbolic model
-of the environment. These models are separately stored in the knowledge base.
+\paragraph*{Ego-centric and allo-centric frames} SPARK enables
+\emph{perspective-taking}: spatial relations between entities can be computed
+from different viewpoints, which let the robot build for each agents it
+interacts with a different, \emph{perspective-aware} symbolic model of the
+environment. These models are separately stored in the knowledge base.
 
 This allows us to deal with ambiguities that arises when one speaker refers to
 an object within a reference system (or changes the reference system, \ie
@@ -314,8 +298,8 @@ switches perspective) without making the reference frame
 explicit~\cite{Breazeal2006, Ros2010}.
 
 As a result, the robot stores models on the environment either in the
-\emph{ego-centric} reference frame (from the robot perspective) or in
-addressee-centred (\ie, \emph{allo-centric}) frames.
+\emph{ego-centric} reference frame (from the robot perspective) or in the
+\emph{allo-centric} frame (addressee-centred).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
