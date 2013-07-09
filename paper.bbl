@@ -67,6 +67,16 @@ R.~Alami, M.~Warnier, J.~Guitton, S.~Lemaignan, and E.~A. Sisbot, ``When the
   robot considers the human...'' in \emph{Proceedings of the 15th International
   Symposium on Robotics Research}, 2011, to appear.
 
+\bibitem{Sisbot2011}
+E.~Sisbot, R.~Ros, and R.~Alami, ``Situation assessment for human-robot
+  interaction,'' in \emph{20th IEEE International Symposium in Robot and Human
+  Interactive Communication}, 2011.
+
+\bibitem{Alili2009}
+S.~Alili, M.~Warnier, M.~Ali, and R.~Alami, ``Planning and plan-execution for
+  human-robot cooperative task achievement,'' in \emph{19th International
+  Conference on Automated Planning and Scheduling}, 2009.
+
 \bibitem{Woolridge1999}
 M.~Woolridge, \emph{Multiagent Systems. A Modern Approach to Distributed
   Artificial Intelligence.}\hskip 1em plus 0.5em minus 0.4em\relax
@@ -82,10 +92,25 @@ M.~Tenorth and M.~Beetz, ``{\sc KnowRob} - knowledge processing for autonomous
   personal robots,'' in \emph{IEEE/RSJ International Conference on Intelligent
   Robots and Systems}, 2009.
 
-\bibitem{Sisbot2011}
-E.~Sisbot, R.~Ros, and R.~Alami, ``Situation assessment for human-robot
-  interaction,'' in \emph{20th IEEE International Symposium in Robot and Human
-  Interactive Communication}, 2011.
+\bibitem{Lim2011}
+G.~Lim, I.~Suh, and H.~Suh, ``Ontology-based unified robot knowledge for
+  service robots in indoor environments,'' \emph{IEEE Transactions on Systems,
+  Man and Cybernetics}, pp. 1--18, 2011.
+
+\bibitem{Chen2010}
+\BIBentryALTinterwordspacing
+X.~Chen, J.~Ji, J.~Jiang, G.~Jin, F.~Wang, and J.~Xie, ``Developing high-level
+  cognitive functions for service robots,'' in \emph{Proceedings of the 9th
+  International Conference on Autonomous Agents and Multiagent Systems}, ser.
+  AAMAS '10.\hskip 1em plus 0.5em minus 0.4em\relax Richland, SC: International
+  Foundation for Autonomous Agents and Multiagent Systems, 2010, pp. 989--996.
+  [Online]. Available: \url{http://dl.acm.org/citation.cfm?id=1838206.1838339}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Erdem2012}
+E.~Erdem, E.~Aker, and V.~Patoglu, ``Answer set programming for collaborative
+  housekeeping robotics: representation, reasoning, and execution,''
+  \emph{Intelligent Service Robotics}, vol.~5, no.~4, pp. 275--291, 2012.
 
 \bibitem{Breazeal2006}
 C.~Breazeal, M.~Berlin, A.~Brooks, J.~Gray, and A.~Thomaz, ``Using perspective
@@ -96,11 +121,6 @@ C.~Breazeal, M.~Berlin, A.~Brooks, J.~Gray, and A.~Thomaz, ``Using perspective
 R.~Ros, E.~A. Sisbot, R.~Alami, J.~Steinwender, K.~Hamann, and F.~Warneken,
   ``Solving ambiguities with perspective taking,'' in \emph{5th ACM/IEEE
   International Conference on Human-Robot Interaction}, 2010.
-
-\bibitem{Alili2009}
-S.~Alili, M.~Warnier, M.~Ali, and R.~Alami, ``Planning and plan-execution for
-  human-robot cooperative task achievement,'' in \emph{19th International
-  Conference on Automated Planning and Scheduling}, 2009.
 
 \bibitem{Lemaignan2012a}
 \BIBentryALTinterwordspacing

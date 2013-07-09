@@ -186,30 +186,29 @@ act as an alternative perceptual input to the symbolic database: it also
 actively queries previously acquired knowledge to disambiguate and validate the
 newly created symbolic knowledge (see section~\ref{sect|com}).
 
-Our architecture relates but is to be distinguished from \emph{Beliefs,
-Desires, Intentions} (BDI) architectures. BDI architectures are primarily
-focused on \emph{practical reasoning}, \ie the process of deciding, step by
-step, which action to perform to reach a goal (as summarised by
-Woolridge~\cite{Woolridge1999}). The management of the interaction between
-knowledge (the beliefs) and task and plan representation and execution (the
-desires and the intentions) is central, and aims at selecting at each step the
-best subgoal. It becomes then an intention that the robot commits to.
+Our architecture relates to \emph{Beliefs, Desires, Intentions} (BDI)
+architectures. BDI architectures are primarily focused on \emph{practical
+reasoning}, \ie the process of deciding, step by step, which action to perform
+to reach a goal (as summarised by Woolridge~\cite{Woolridge1999}). The
+management of the interaction between knowledge (the beliefs) and task and plan
+representation and execution (the desires and the intentions) is central, and
+aims at selecting at each step the best subgoal. It becomes then an intention
+that the robot commits to.
 
 This interaction between knowledge and actions is also central to our approach
-(as for any cognitive system), but task representation and task execution is
-not seen as a monolithic, central function: it is one of the activities of the
-robot, actually split between communication components (that can acquire
+(as for any cognitive system): it is one of the activities of the
+robot, actually shared between communication components (that can acquire
 desires from interaction with agents, amongst other things) and an execution
 controller that may decide to take an incoming desire into account to create
 its own internal goals. The controller generates and manages intentions from
 these goals with the help of a symbolic task planner, that also has direct
 access to the knowledge base.
 
-The architecture is not only focused on this workload, and other
-activities are conducted without being explicitly considered as desires:
-assessment of the situation and the environment, dialogue (including
+Our architecture is however \emph{not built around} this activity only. Other
+activities are conducted in parallel, without being explicitly considered as
+desires: assessment of the situation and the environment, dialogue (including
 performative dialogue that can possibly change the internal state of the robot,
-but does not lead to the creation of desires,  like question answering or
+but does not lead to the creation of desires,like question answering or
 statement assertion), various background monitoring and recognition tasks, etc.
 
 Regarding the anchoring question, this architecture is bidirectional. The
@@ -220,7 +219,7 @@ accessible to decisional layers. In parallel, the knowledge base relies on
 reasoning in a \textit{top-down} way to produce new facts that may trigger in
 return physical behaviours.
 
-\subsection{Knowledge model}
+\subsection*{Knowledge model}
 
 In our architecture (Fig.~\ref{fig|archi}), knowledge manipulation relies on a
 \emph{semantic blackboard}: one central server (the {\sc Oro}
