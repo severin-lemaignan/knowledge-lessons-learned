@@ -233,13 +233,15 @@ Logics reasoner ({\sc Pellet}\footnote{\url{http://clarkparsia.com/pellet/}})
 classifies the whole ontology and inserts all possible inferred triples.
 
 Relying on RDF triples and Description Logics has major advantages like the
-availability of numerous open-source libraries to manipulate the ontology,
+availability of numerous mature open-source libraries to manipulate the ontology,
 interoperability with several major on-line knowledge bases (like {\sc
 OpenCyc}, {\sc WordNet} or {\sc DBPedia}), open-world reasoning, and the formal
 guarantee of decidability (it is always possible to classify a Description
 Logics ontology).
 
-It has also notable limitations: RDF triples imply only binary predicates
+It has also notable limitations, both fundamental (the suitability
+of Description Logics when reasoning on --typically non-monotonic-- commonsense
+knowledge is questionable) and practical: RDF triples imply only binary predicates
 (\stmt{subject predicate object}), which constrains the expressiveness of the
 system or leads to cumbersome reifications. Alternative exists (like {\sc
 KnowRob}~\cite{Tenorth2009a}) that mixes RDF with more expressive logic
@@ -254,13 +256,26 @@ complexity of the whole knowledge model and lead to notable degradation of
 classification time.
 
 This knowledge model also largely exclude representation of continuous
-phenomena (like time) or uncertain phenomena. When required, these are managed
-inside the corresponding components, and are not exposed at the system level.
+phenomena (like time) or uncertain phenomena. When required (for instance for
+action recognition), these are managed inside the corresponding components, and
+are not exposed at the semantic level.
 
-Amongst the features of {\sc Oro}, the system can dynamically create
-new independent knowledge models (\ie independent instantiations of the
-ontology). This feature is used for instance to store separately the beliefs of
-each of the agents the robot interacts with (see section~\ref{sect|tom}).
+Tools to manipulate and reason over ontologies are readily available, mature,
+and already well accepted in the robotic community~\cite{Tenorth2009a,
+Lim2011}. While alternatives like \emph{Answer Set Programming} have also been
+successfully investigated in robotics~\cite{Chen2010,Erdem2012}, in particular
+to deal with non-monotonic reasoning, we did not actually hit any brick wall
+while working with OWL ontologies. We may reconsider this choice at a later
+stage, but until now it has proven an effective framework to quickly explore
+implementations of new cognitive abilities (for instance, it has been
+conceptually and technically easy to add support for independent knowledge
+models, one per the agents the robot interacts with --see
+section~\ref{sect|tom}).
+
+Besides, because ontologies and RDF statements are relatively simple concepts
+to grasp, it also effectively helped to grow awareness amongst colleagues on
+the significance of the ``semantic level'' when developing new components for
+the robot.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
