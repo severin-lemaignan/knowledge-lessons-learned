@@ -352,14 +352,16 @@ concepts like objects (\ie when a user says ``pick the can'', resolve to which
 instance of \emph{can} the user is referring to) and actions. Sentences are
 sorted into questions, desires and statements, and processed accordingly.
 
-The system supports quantification (``give me \{a | the | some | all | any | ...\} can''),
-thematic roles (action-specific predicates that qualify the actions), interactive disambiguation (the robot asks
-questions when it needs more information), anaphora resolution (``give \emph{it} to me'') based on
+The system supports quantification (``give me \{a | the | some | all | any |
+...\} can''), thematic roles (action-specific predicates that qualify the
+actions), interactive disambiguation (the robot asks questions when it needs
+more information), anaphora resolution (``give \emph{it} to me'') based on
 dialogue history. It also permits knowledge extension by learning new semantic
 structures (for instance, a sentence like ``learn that cats are animals'' is
-converted into \stmt{Cat subClassOf Animal}), interprets common temporal and place adverbs (like \emph{above} or \emph{tomorrow}) and translates to a certain extend \emph{states} (``I'm tired'') into
-\emph{experiences} (\stmt{HUMAN experiences state\_1, state\_1 hasFeature
-tired}).
+converted into \stmt{Cat subClassOf Animal}), interprets common temporal and
+place adverbs (like \emph{above} or \emph{tomorrow}) and translates to a
+certain extend \emph{states} (``I'm tired'') into \emph{experiences}
+(\stmt{HUMAN experiences state\_1, state\_1 hasFeature tired}).
 
 \paragraph*{Limits of disambiguation at semantic level}
 
@@ -428,7 +430,8 @@ on discrimination transparently benefit from added modalities.
 \subsection{Desires and experiences}
 
 Our robot execution controllers (OpenPRS-based {\sc Shary} or Python-based {\sc
-pyRobots}) have deep integration with the knowledge base. It serves as the primary source of information for semantic-aware decision-making.
+pyRobots}) have deep integration with the knowledge base. It serves as the
+primary source of information for semantic-aware decision-making.
 
 We split the interaction situations stemming from the situation assessment and
 communication components in two categories: \emph{desires} (performative act)
@@ -482,9 +485,9 @@ Our execution controllers rely on symbolic task planning to convert faraway
 desires into a succession of atomic actions. We use in our architecture the
 HATP planner (for Human Aware Task Planner~\cite{Alili2009}).  HATP is based on
 a Hierarchical Task Network (HTN) refinement, which performs an iterative task
-decomposition into sub-tasks until reaching atomic actions.  The \emph{planning
-domain} defines the set of methods describing how to decompose a task and can
-be seen as the procedural knowledge of the robot.
+decomposition into sub-tasks until reaching atomic actions. The \emph{planning
+domain} defines the set of methods describing how to decompose a task and
+represents the procedural knowledge of the robot.
 
 In order to produce a collaborative behaviour, the robot plans not only for
 itself but also for the other agents. The planning domain of each agent is
@@ -494,7 +497,6 @@ agent involved in the goal achievement. HATP can also be tuned by setting up
 different costs depending on the actions to apply and by taking into account a
 set of constraints called \emph{social rules}. This tuning aims at adapting the
 robot's behaviour according to the desired level of cooperation of the robot.
-
 
 Two important remarks: because HATP is a generic symbolic task planner, we have
 been able to design a planning domain at a semantic level which is close to the
@@ -508,43 +510,13 @@ Second remark, after some research (see appendix B of~\cite{Lemaignan2012a} for
 a detailed discussion)  we have decided not to represent neither the planning
 domain nor the resulting plans in the knowledge base: the planning domain (with
 tasks pre- and postconditions) is stored in a specific format, outside of the
-knowledge repository, and the plans are directly communicated to the robot
-controller. From our experience, the OWL formalism is not a satisfying
-representation language for concepts that are both tightly bound to time
-representation and non-monotonic.
-
+central declarative knowledge repository, and the plans are directly
+communicated to the robot controller. Thus, like many other cognitive
+architectures, we have independent declarative and procedural knowledge stores.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Internal cognitive processes}
 \label{sect|intern}
-
-\subsection{Cognitive load}
-
-\begin{figure}
-        \centering
-        \includegraphics[width=\columnwidth]{figs/cognitive_load.png}
-        \caption{This diagram shows the average number of interactions with the
-        knowledge base during a one-hour long experiment with the robot.
-        Interactions are either knowledge alteration (addition/removal of
-        statements) or queries. They are averaged on a sliding window of 60 seconds.}
-        \label{fig|cognitiveload}
-\end{figure}
-
-Fig.~\ref{fig|cognitiveload} is a plot of the log of interactions between the
-robot modules and the knowledge base during a one-hour long experiment. Because
-most of the communication between modules goes in fact through the knowledge
-base in our architecture (Fig.~\ref{fig|archi}), it actually pictures the
-intensity of internal information exchanges between the different deliberative
-component of the robot over time. Since communication actually relies on
-grounded semantic information, we can call this level of interaction the
-\emph{cognitive load} of the robot.
-
-This simplistic measurement needs to be refined to take into account the fact
-that the raw number of RPC calls to the knowledge base only imperfectly
-reflects the actual cognitive processes running on, but it opens interesting
-perspective nevertheless. It would be interesting for example to compare
-and look for correlations with the cognitive load of a human partner (measured
-via EEG or qualitative feedback).
 
 \subsection{Theory of Mind}
 \label{sect|tom}
@@ -556,7 +528,9 @@ example, a book can be at the same time \emph{visible} by myself, and \emph{not
 visible} by you.
 
 This skill, which is essential to understand others' perspectives during
-interactions, appears in children around their third year. It supposes the ability to build, store and retrieve separate models of the knowledge of the interactors.
+interactions, appears in children around their third year. It supposes the
+ability to build, store and retrieve separate models of the knowledge of the
+interactors.
 
 Our knowledge base implements such a mechanism: when the robots infers a new
 agent has been introduced in the knowledge base, it initializes a new,
@@ -605,6 +579,34 @@ action, and each red objects that are found are successively marked as
 ActiveConcept} in the short-term memory (which can be considered, in this case,
 to be a working memory). We use this feature to trace certain knowledge-related
 processes.
+
+\subsection{Cognitive activity}
+
+\begin{figure}
+        \centering
+        \includegraphics[width=\columnwidth]{figs/cognitive_load.png}
+        \caption{This diagram shows the average number of interactions with the
+        knowledge base during a one-hour long experiment with the robot.
+        Interactions are either knowledge alteration (addition/removal of
+        statements) or queries. They are averaged on a sliding window of 60 seconds.}
+        \label{fig|cognitiveload}
+\end{figure}
+
+Fig.~\ref{fig|cognitiveload} is a plot of the interactions (knowledge
+alterations or knowledge queries) between the robot's modules and the central
+knowledge base during a one-hour long experiment. Because most of the
+communication between modules are in fact supported by the knowledge base in
+our architecture (Fig.~\ref{fig|archi}), it reflects well the exchanges of
+semantic informations within the deliberative layer of the robot, which we can
+tentatively call the \emph{cognitive activity} of the robot.
+
+This simplistic measurement needs to be refined to take into account the fact
+that the raw number of RPC calls to the knowledge base only imperfectly
+reflects the actual cognitive processes running on, but it opens interesting
+perspectives nevertheless. We could for instance investigate possible
+correlations with the cognitive activity of a human partner (measured via EEG
+or qualitative feedback).
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
